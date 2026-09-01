@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>דלת המתכון</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0; min-height:100vh; font-family:Arial,sans-serif;
+ background:linear-gradient(135deg,#151515,#3b2417);
+ color:#fff; display:flex; align-items:center; justify-content:center;
+ overflow-x:hidden;
+}
+.wrap{width:min(1100px,94vw); text-align:center; padding:30px 0}
+h1{font-size:clamp(38px,8vw,78px);margin:0 0 8px}
+.sub{font-size:20px;opacity:.8;margin-bottom:28px}
+.scene{height:500px;display:flex;align-items:center;justify-content:center;perspective:1200px}
+.door{
+ width:min(360px,75vw);height:430px;position:relative;cursor:pointer;
+ transform-style:preserve-3d;transition:transform 1.2s cubic-bezier(.2,.8,.2,1);
+ transform-origin:left center;
+}
+.door.open{transform:rotateY(-108deg)}
+.doorFace{
+ position:absolute;inset:0;border:10px solid #8b5a2b;border-radius:12px;
+ background:linear-gradient(90deg,#5a351b,#8a5528,#5a351b);
+ box-shadow:0 25px 50px #0009,inset 0 0 30px #0008;
+ backface-visibility:hidden;padding:35px;
+}
+.doorFace:before,.doorFace:after{
+ content:"";position:absolute;left:18%;right:18%;height:30%;
+ border:5px solid #a86d35;border-radius:8px;top:12%;
+}
+.doorFace:after{top:56%}
+.knob{position:absolute;right:25px;top:50%;width:25px;height:25px;border-radius:50%;background:#e3b34b;box-shadow:0 2px 8px #000;z-index:3}
+.back{
+ position:absolute;inset:0;background:linear-gradient(145deg,#f7ead3,#fff);
+ color:#2b2119;border-radius:12px;padding:28px;transform:rotateY(180deg);
+ backface-visibility:hidden;box-shadow:0 25px 50px #0008;overflow:auto;
+}
+.back h2{margin:5px 0 15px;color:#7b3f18}
+button{
+ border:0;border-radius:999px;padding:14px 25px;font-size:18px;font-weight:bold;
+ cursor:pointer;background:#f0b34b;color:#24170e;box-shadow:0 8px 20px #0005;
+}
+button:hover{transform:translateY(-2px)}
+.recipe{display:none;text-align:right;margin-top:15px;background:#fff;color:#241b15;border-radius:22px;padding:28px;box-shadow:0 20px 50px #0007}
+.recipe.show{display:block;animation:rise .6s ease}
+.recipe h2{margin-top:0;color:#7b3f18;font-size:32px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.card{background:#f8f1e7;padding:18px;border-radius:16px}
+.card h3{margin-top:0;color:#9a5424}
+li{margin:8px 0;line-height:1.5}
+@keyframes rise{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+@media(max-width:700px){.scene{height:420px}.door{height:360px}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <h1>🚪 דלת המתכון</h1>
+ <div class="sub">פותחים דלת — מגלים מנה</div>
+
+ <div class="scene">
+  <div class="door" id="door" onclick="openDoor()">
+   <div class="doorFace">
+    <div style="font-size:28px;font-weight:bold;margin-top:140px">מתכון מסתורי</div>
+    <div style="opacity:.75;margin-top:12px">לחץ כדי לפתוח</div>
+    <div class="knob"></div>
+   </div>
+   <div class="back">
+    <h2>✨ נפתח!</h2>
+    <p>המתכון הראשון מחכה לך...</p>
+   </div>
+  </div>
+ </div>
+
+ <button id="openBtn" onclick="openDoor()">🚪 פתח את הדלת</button>
+
+ <section class="recipe" id="recipe">
+  <h2>🍳 אגז בנדיקט</h2>
+  <p><b>מנה אישית • זמן הכנה:</b> כ־30 דקות</p>
+  <div class="grid">
+   <div class="card">
+    <h3>🛒 מצרכים</h3>
+    <ul>
+     <li>פרוסת בריוש אחת</li>
+     <li>ביצה אחת</li>
+     <li>50 גרם תרד</li>
+     <li>5 גרם חמאה</li>
+     <li>חלמון אחד</li>
+     <li>כ־40 גרם חמאה לרוטב הולנדז</li>
+     <li>מעט מיץ לימון</li>
+     <li>מלח ופלפל</li>
+     <li>עירית או גרידת לימון להגשה</li>
+    </ul>
+   </div>
+   <div class="card">
+    <h3>👨‍🍳 הכנה</h3>
+    <ol>
+     <li>קולים את הבריוש עד שהוא זהוב.</li>
+     <li>מקפיצים את התרד בחמאה ומתבלים.</li>
+     <li>מכינים ביצה עלומה במים חמים עד שהחלבון מבושל.</li>
+     <li>טורפים חלמון עם מעט מים ולימון בחום עדין ומוסיפים חמאה בהדרגה ליצירת הולנדז.</li>
+     <li>מרכיבים: בריוש → תרד → ביצה → הולנדז.</li>
+     <li>מסיימים בעירית או בגרידת לימון.</li>
+    </ol>
+   </div>
+  </div>
+  <div class="card" style="margin-top:22px">
+   <h3>🍽️ הגשה</h3>
+   <p>צלחת לבנה רחבה, המנה במרכז, רוטב הולנדז מעל וקישוט קטן של עירית או גרידת לימון.</p>
+  </div>
+ </section>
+</div>
+
+<script>
+function openDoor(){
+ const door=document.getElementById('door');
+ door.classList.add('open');
+ document.getElementById('openBtn').style.display='none';
+ setTimeout(()=>document.getElementById('recipe').classList.add('show'),850);
+}
+</script>
+</body>
+</html>
